@@ -30,15 +30,16 @@ public class UserService {
         return repository.save(user);
     }
 /*FindByAccountName*/
-   public User getIdFromUser(Long accountName) throws Exception {
+   public User getIdFromUser(Long accountName, int controller_channel, int status) throws Exception {
      Optional <User> userOptional = repository.findByAccountName(accountName);
         if (userOptional.isPresent()){
 
             UserService http = new UserService(repository);
 
             // int AnvändarID = id från databasen
-            System.out.println(userOptional.get().getControllerId());
-                http.sendingPostRequest(userOptional.get().getControllerId());
+            System.out.println(controller_channel);
+
+            http.sendingPostRequest(userOptional.get().getControllerId(), controller_channel, status);
 
 
             return userOptional.get();
@@ -54,7 +55,8 @@ public class UserService {
  // ta lösenordet, kolla efter användarID i databasen
  // kör metoden sendingPostRequest(användarID)
  // HTTP Post request**/
-private void sendingPostRequest(int controller_id) throws Exception {
+private void sendingPostRequest(int controller_id, int controller_channel, int status) throws Exception {
+
 
     String url = "http://84.217.194.147:4000/post";
     URL obj = new URL(url);
@@ -66,7 +68,7 @@ private void sendingPostRequest(int controller_id) throws Exception {
     con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
     con.setRequestProperty("Content-Type","application/json");
 
-    String postJsonData = String.format("{\"password\":%d}", controller_id);
+    String postJsonData = String.format("{\"controller_id\":%d, \"controller_channel\":%d, \"status\":%d }", controller_id, controller_channel, status);
     System.out.println(postJsonData);
 
     // Send post request

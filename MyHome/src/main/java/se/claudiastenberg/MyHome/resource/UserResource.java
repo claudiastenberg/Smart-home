@@ -33,8 +33,8 @@ public class UserResource {
         return Response.ok().build();
     }
     @GET
-    @Path("{accountName}")
-    public Response getUser(@PathParam("accountName") Long accountName) throws Exception {
-        return Response.ok(service.getIdFromUser(accountName)).build();
+    @Path("{accountName}/{controller_id}/{status}")
+    public Response getUser(@PathParam("accountName") Long accountName, @PathParam("controller_id") Integer controller_id, @PathParam("status") Integer status) throws Exception {
+        return Response.ok(service.getIdFromUser(accountName, controller_id, status)).build();
     }
 }
