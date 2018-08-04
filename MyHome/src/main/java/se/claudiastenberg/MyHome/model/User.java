@@ -10,25 +10,25 @@ public class User {
     @Id
     @GeneratedValue
     private Long id;
-    private int accountName;
-    private boolean status;
+    private Long accountName;
+    private int controllerId;
 
     protected User(){}
 
-    public User(int password, boolean status) {
-        this.accountName = password;
-        this.status = status;
+    public User(Long accountName, int controllerId) {
+        this.accountName = accountName;
+        this.controllerId = controllerId;
     }
 
     public Long getId() {
         return id;
     }
 
-    public int getAccountName() {
+    public Long getAccountName() {
         return accountName;
     }
 
-    public boolean isStatus() {
-        return status;
+    public int getControllerId() {
+        return controllerId;
     }
 }
