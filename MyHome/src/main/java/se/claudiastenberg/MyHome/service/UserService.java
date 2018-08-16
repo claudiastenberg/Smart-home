@@ -29,34 +29,23 @@ public class UserService {
     public User createUser(User user){
         return repository.save(user);
     }
-/*FindByAccountName*/
+    /*FindByAccountName*/
    public User getIdFromUser(Long accountName, int controller_channel, int status) throws Exception {
      Optional <User> userOptional = repository.findByAccountName(accountName);
         if (userOptional.isPresent()){
 
             UserService http = new UserService(repository);
 
-            // int AnvändarID = id från databasen
             System.out.println(controller_channel);
 
             http.sendingPostRequest(userOptional.get().getControllerId(), controller_channel, status);
-
 
             return userOptional.get();
             }
         throw new NotFoundException();
     }
 
-/**Här ska metod för post till rasberrypi ligga med en input från databasen
- *
- *
- *
-// om jag får ett post anrop
- // ta lösenordet, kolla efter användarID i databasen
- // kör metoden sendingPostRequest(användarID)
- // HTTP Post request**/
-private void sendingPostRequest(int controller_id, int controller_channel, int status) throws Exception {
-
+    private void sendingPostRequest(int controller_id, int controller_channel, int status) throws Exception {
 
     String url = "http://84.217.194.147:4000/post";
     URL obj = new URL(url);

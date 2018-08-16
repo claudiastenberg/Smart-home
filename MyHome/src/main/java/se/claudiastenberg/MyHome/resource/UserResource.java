@@ -25,8 +25,6 @@ public class UserResource {
     public UserResource(UserService service) {
         this.service = service;
     }
-
-
     @POST
     public Response createUser(User user){
         service.createUser(user);
